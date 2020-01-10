@@ -117,11 +117,10 @@ include("includes/head.inc.php");
 			</div>
 			<!-- end #content -->
 			<div id="sidebar">
-			<?php
-				if(isset($_GET['ms'])) {
-					echo $_GET['ms']."<br><br>";
-				}
-			?>
+			<? if(isset($_GET['ms'])) {
+		                echo $_GET['ms']."<br><br>";
+                        }
+                        ?>
 			<?php
 		include("includes/sidebar.inc.php");
 		?>	
