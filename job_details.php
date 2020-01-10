@@ -86,7 +86,7 @@ include("includes/head.inc.php");
 				<div class="post">
 					
 					
-					<h2 class="title"><a href="job_details.php?cat=<?php echo $row['j_title']; ?>"><?php echo $row['j_title']; ?> </a></h2>
+					<h2 class="title"><a href="job_details.php?id=<?php echo $row['j_id']; ?>"><?php echo $row['j_title']; ?> </a></h2>
 					<p class="meta"></p>
 					<div class="entry">
 						<table width="100%" border="0">
