@@ -31,6 +31,6 @@
 		   
 		mysqli_query($link,$q)or die("wrong query");
 		mysqli_close($link);
-		header("location:contact.php");
+		header("location:Contact.php");
 	}
 ?>

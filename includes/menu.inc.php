@@ -8,6 +8,7 @@
 				{
 					echo '<li><a href="employeeregister.php">Employee Register</a></li>';
 					echo '<li><a href="employerregister.php">Employer Register</a></li>';
+					echo '<li><a href="faq.php">FAQS</a></li>';
 				}
 	
 		?>

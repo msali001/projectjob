@@ -4,6 +4,7 @@
 				<li><a href="category.php">Category</a></li>
 				<li><a href="contact.php">Contact</a></li>
 				<li><a href="verify.php">Verify</a></li>
+				<li><a href="manage_faq.php">Manage FAQ</a></li>
 				<?php
 	
 				if(isset($_SESSION['status']))
