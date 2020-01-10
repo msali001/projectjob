@@ -68,7 +68,52 @@ include("includes/head.inc.php");
 						
 					</div>
 				</div>
+				<?php
+				        if(isset($_GET['s']))
+                                        {
+                                                $q="SELECT * FROM `jobs` WHERE`j_active` = 1 AND `j_title` like '%".$s=$_GET['s']."%' limit 0,5";
+                                        }
+                                        else
+				                $q="SELECT * FROM `jobs` WHERE`j_active` = 1 limit 0,5";
+                                        $res=mysqli_query($link,$q) or die ("can not select database");
+                                        $i=0;
+                                        while($row = mysqli_fetch_assoc($res))
+					{
+					        $i++;
+
+				?>
 				
+				<div class="post">
+					<h2 class="title"><a href="job_details.php?id=<?php echo $row['j_id']; ?>"><?php echo $row['j_title']; ?></a></h2>
+					<p class="meta">Category: <?php echo $row['j_category'].", Experience :".$row['j_experience']." years, Salary :Rs. ".$row['j_salary']; ?></p>
+					<div class="entry">
+						<p><?php echo $row['j_discription']; ?></p>
+					</div>
+				</div>
+
+				<?php } 
+				if($i != 0)
+				{
+				?>
+				
+				<div class="post">
+					<div class="entry">
+						<p><a href="employeeregister.php">Login to see more</a></p>
+					</div>
+				</div>
+				<?php
+				}
+				else
+				{
+				?>
+				<div class="post">
+					<div class="entry">
+						<p>Nothing to show</p>
+					</div>
+				</div>
+				<?php
+				}
+				?>
 			</div>
 			<!-- end #content -->
 			<div id="sidebar">

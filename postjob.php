@@ -54,6 +54,10 @@ include("includes/head.inc.php");
 				<div class="post">
 					
 					<h2 class="title">POST JOB</a></h2>
+					<?php if(isset($_GET['error'])) {
+		                echo $_GET['error'];
+                        }
+                        ?>
 					<p class="meta">JOB SPECIFICATION</p>
 					<div class="entry">
 					<form action="process_postjob.php" method="post">
@@ -70,7 +74,7 @@ include("includes/head.inc.php");
 	
 						while($row=mysqli_fetch_assoc($res))
 						{
-							echo "<option>".$row['cat_nm'];
+							echo "<option>".$row['cat_nm']."</option>";
 						}
 						?>
 						</SELECT>

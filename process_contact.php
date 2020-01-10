@@ -11,11 +11,12 @@
 
 	if(!empty($msg))
 	{
-		echo "<b> errors:</b><br>";
+		$err = "<b>Errors:</b><br>";
 		foreach($msg as $k)
 		{
-			echo "<li>".$k;
+			$err .= "<li>".$k."</li>";
 		}
+		header("location:Contact.php?error=$err");
 	}
 	else
 	{

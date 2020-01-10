@@ -25,6 +25,28 @@ Released   : 20090906
 -->
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+<style>
+.example_e {
+border: none;
+background: #404040;
+color: #ffffff !important;
+font-weight: 100;
+padding: 10px;
+text-transform: uppercase;
+border-radius: 6px;
+display: inline-block;
+transition: all 0.3s ease 0s;
+}
+.example_e:hover {
+color: #404040 !important;
+font-weight: 700 !important;
+letter-spacing: 3px;
+background: none;
+-webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+-moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+transition: all 0.3s ease 0s;
+}
+</style>
 
 <?php
 include("includes/head.inc.php");
@@ -64,7 +86,7 @@ include("includes/head.inc.php");
 				<div class="post">
 					
 					
-					<h2 class="title"><a href="job_details.php?cat=<?php echo $row['j_title']; ?>"><?php echo $row['j_title']; ?> </a></h2>
+					<h2 class="title"><a href="job_details  .php?cat=<?php echo $row['j_title']; ?>"><?php echo $row['j_title']; ?> </a></h2>
 					<p class="meta"></p>
 					<div class="entry">
 						<table width="100%" border="0">
@@ -83,22 +105,21 @@ include("includes/head.inc.php");
 						<br>
 						<br>
 					
-		<?php
-	
-				if(isset($_SESSION['status']) && $_SESSION['cat']=="employee")
-				{
-					echo'<tr><td colspan="2"><center><a href="process_apply.php?jid='.$row['j_id'].'"> Apply </center></td></tr></a>';
-				}
-	
-		?>
-								
-							
-					
+		
 						</table>
 					
 					
 						
 					</div>
+					<?php
+	
+				if(isset($_SESSION['status']) && $_SESSION['cat']=="employee")
+				{
+					echo '<div class="button_cont" align="center"><a class="example_e" href="process_apply.php?jid='.$row['j_id'].'" target="_blank" rel="nofollow noopener">Apply Now</a></div>';
+					//echo'<tr><td colspan="2"><center><a href="process_apply.php?jid='.$row['j_id'].'"> Apply </center></td></tr></a>';
+				}
+	
+		?>
 				</div>
 				
 			</div>
@@ -123,4 +144,5 @@ include("includes/head.inc.php");
 </div>
 <!-- end #footer -->
 </body>
+
 </html>

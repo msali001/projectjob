@@ -55,6 +55,10 @@ include("includes/head.inc.php");
 					
 					<h2 class="title">Contact</h2>
 					<p class="meta">please fill this form if you have any query</p>
+					<?php if(isset($_GET['error'])) {
+		                echo $_GET['error'];
+                        }
+                        ?>
 					<div class="entry">
 					<form action="process_contact.php" method="post">
 						Fullname <br><br><input type="text" name="nm">

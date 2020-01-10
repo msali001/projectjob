@@ -60,7 +60,7 @@ include("includes/head.inc.php");
 					<p class="meta"></p>
 					<div class="entry">
 					<form action="process_addcategories.php" method="POST">
-						Name <input type = "text" name="nm"> <input type="submit" value="Submit"">
+						Name <input type = "text" name="nm" required> <input type="submit" value="Submit"">
 						</form>
 					</div>
 				</div>

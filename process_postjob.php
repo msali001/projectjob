@@ -1,5 +1,5 @@
 <?php session_start();
-        include("includes/config.php");
+        include("includes/config.php"); 
 	if(empty($_POST))
 	{
 		exit;
@@ -20,11 +20,12 @@
 	}
 	if(!empty($msg))
 	{
-		echo "<b> errors:</b><br>";
+		$err = "<b>Errors:</b><br>";
 		foreach($msg as $k)
 		{
-			echo "<li>".$k;
+			$err .= "<li>".$k."</li>";
 		}
+		header("location:postjob.php?error=$err");
 	}
 	else
 	{
