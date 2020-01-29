@@ -1,5 +1,10 @@
 <?php session_start();
 
+if(isset($_SESSION['cat'])) {
+	if($_SESSION['cat'] === 'employee') {
+		//$q = 
+	}
+}
 $link=mysqli_connect("localhost","root","","jobscope")or die("can not connect");
 //mysqli_select_db("jobscope",$link) or die("can not select database");
 
@@ -23,7 +28,25 @@ Released   : 20090906
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	
+<style>
+fieldset {
+    display: table;
+}
+fieldset p {
+    display: table-row;
+}
+fieldset select,button {
+	margin: 5px;
+	width: 100%;
+} 
+fieldset label {
+    display: table-cell;
+    margin: 3px;
+}
+fieldset label {
+    text-align: right;
+}
+</style>
 
 <?php
 include("includes/head.inc.php");
@@ -71,16 +94,25 @@ include("includes/head.inc.php");
 				</div>
 				<?php
 				        if(isset($_GET['s']))
-                                        {
-                                                $q="SELECT * FROM `jobs` WHERE`j_active` = 1 AND `j_title` like '%".$s=$_GET['s']."%' limit 0,5";
-                                        }
-                                        else
-				                $q="SELECT * FROM `jobs` WHERE`j_active` = 1 limit 0,5";
-                                        $res=mysqli_query($link,$q) or die ("can not select database");
-                                        $i=0;
-                                        while($row = mysqli_fetch_assoc($res))
-					{
-					        $i++;
+						{
+							
+							$q="SELECT * FROM `jobs` WHERE`j_active` = 1 AND `j_title` like '%".$s=$_GET['s']."%' limit 0,5";
+						}
+						else if(isset($_GET['category']) && isset($_GET['experience']) && isset($_GET['salary'])) {
+							$q= "SELECT * FROM `jobs` WHERE `j_active` = 1 AND `j_salary` ".$_GET['salary']." AND `j_experience`".$_GET['experience'];
+							if($_GET['category']!== "any") {
+								$q= $q." AND `j_category` = \"".$_GET['category']."\"";
+							}
+							//echo $q;
+						}
+						else
+							$q="SELECT * FROM `jobs` WHERE`j_active` = 1 limit 0,5";
+
+						$res=mysqli_query($link,$q) or die ("can not select database");
+						$i=0;
+						while($row = mysqli_fetch_assoc($res))
+						{
+							$i++;
 
 				?>
 				
