@@ -73,25 +73,51 @@ include("includes/head.inc.php");
 					<table border="0" width="100%">
 				
 				<tr>
-						<td width="10%">No
-						<td width="50%">Name
-						<td width="30%">Resume
+						<td width="5%">No</td>
+						<td width="40%">Name</td>
+						<td width="15%">Resume</td>
+						<td width="40%">Contact</td>
 						
 					</tr>
 				
-					
+				<form action="accept_off.php" method="post" id="formacc" onsubmit="return confirm('Confirm Job Accept');">
+					<input type="hidden" name="jid" value="<?php echo $_GET['id'];?>" >
+					<input type="hidden" name="nm" value="<?php echo $_GET['nm'];?>" >
+				</form>
+				<form action="reject_off.php" method="post" id="formrj" onsubmit="return confirm('Confirm Job Reject');">
+					<input type="hidden" name="jid" value="<?php echo $_GET['id'];?>" >
+					<input type="hidden" name="nm" value="<?php echo $_GET['nm'];?>" >
+				</form>
 				<?php
 				$count=1;
 					while($row=mysqli_fetch_array($res))
 					{
-						
-						echo '<tr> <td width="10%">'.$count.'
-								<td width="50%">'.$row['ee_fnm'].'
-								<td width="30%"><a href="'.$row['ee_resume'].'">resume</a>
+						$qq="SELECT `status` FROM `applicants` WHERE `a_uid` = ".$row['ee_id']." AND `a_jid`=".$_GET['id'];
+						//echo $qq;
+						$ress=mysqli_query($link,$qq) or die ("wrong query");
+						$roow=mysqli_fetch_array($ress);
+						echo '<tr> <td width="5%">'.$count.'
+								<td width="40%">'.$row['ee_fnm'].'
+								<td width="15%"><a href="'.$row['ee_resume'].'">resume</a>
+								<td width="40%"><a href=mailto:'.$row['ee_email'].'>'.$row['ee_email'].'</a>
+								<td>
 								';
+						if($roow['status'] === "ACCEPTED") {
+							echo '<button disabled style="width: 100%" value='.$row['ee_id'].' name="eid" id=a'.$row['ee_id'].' form="formacc">Accept</button>
+							<button style="width: 100%" value='.$row['ee_id'].' name="eid" id=r'.$row['ee_id'].' form="formrj">Reject</button></td>';
+						}
+						else if ($roow['status'] === "REJECTED") {
+							echo '<button style="width: 100%" value='.$row['ee_id'].' name="eid" id=a'.$row['ee_id'].' form="formacc">Accept</button>
+							<button disabled style="width: 100%" value='.$row['ee_id'].' name="eid" id=r'.$row['ee_id'].' form="formrj">Reject</button></td>';
+						}
+						else {
+							echo '<button style="width: 100%" value='.$row['ee_id'].' name="eid" id=a'.$row['ee_id'].' form="formacc">Accept</button>
+							<button style="width: 100%" value='.$row['ee_id'].' name="eid" id=r'.$row['ee_id'].' form="formrj">Reject</button></td>';
+						}
 							$count++;
 					}
 				?>
+				
 				
 					</table>
 						

@@ -2,12 +2,6 @@
 
 	include("includes/config.php");
 	
-	if(!(strtoupper(substr($_FILES['resume']['name'],-4))=='.DOC'))
-	{
-		echo "Wrong file type";
-	}
-	
-	
 	
 	
 	if(empty($_POST))
@@ -38,11 +32,11 @@
 	}
 	if(!is_numeric($_POST['cas']))
 	{
-		$msg[]="Only numeric valueis valid";
+		$msg[]="Only numeric value is valid in Current Anual Salary";
 	}
 	if(empty($_FILES['resume']['name']))
 	{
-		$msg[] = "Plz select a file";
+		$msg[] = "Please select a file";
 	}
 	
 	if($_FILES['resume']['error']>0)
@@ -55,6 +49,7 @@
 		$msg[] = "This file is already uploaded.";
 	}
 	
+	//echo strtoupper(substr($_FILES['resume']['name'],-4));
 
 	if(!(strtoupper(substr($_FILES['resume']['name'],-4))=='.PDF'))
 	{
@@ -86,16 +81,18 @@
 		$quali=$_POST['quali'];
 		$profile=$_POST['profile'];
 		$pwd=$_POST['pwd'];
-		move_uploaded_file($_FILES['resume']['tmp_name'],"uploads/".$_FILES['resume']['name']);
-		$path = "uploads/".$_FILES['resume']['name'];
+		$randstr = rand();
+		move_uploaded_file($_FILES['resume']['tmp_name'],"uploads/".$randstr.$_FILES['resume']['name']);
+		$path = "uploads/".$randstr.$_FILES['resume']['name'];
 		
 		
 		$q="insert into employees(ee_resume,ee_pwd,ee_fnm,ee_gender,ee_email,ee_add,ee_phno,ee_mobileno,
 		     ee_current_location,ee_annualsalary,ee_current_industry,ee_qualification,ee_profile)
 	    values ('$path','$pwd','$nm','$gender','$email','$addr','$ph','$mobile','$cl','$cas','$cindustry','$quali','$profile')";
-		   
+		//echo $q;  
 		mysqli_query($link,$q)or die("wrong query");
 		mysqli_close($link);
-		header("location:employeeregister.php");
+		echo "<script>alert('Employer Successfully registered');window.location.href = 'employeeregister.php';</script>";
+		//header("location:employeeregister.php");
 	}
 ?>

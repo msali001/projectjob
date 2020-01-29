@@ -69,7 +69,7 @@ include("includes/head.inc.php");
 				echo'
 						<tr>
 						<td>
-						'.$row['cont_fnm'].'<br><small>'.$row['cont_email'].'</small><br><br>
+						'.$row['cont_fnm'].'<br><small><a href=mailto:'.$row['cont_email'].'>'.$row['cont_email'].'</a></small><br><br>
 						<td>'.$row['cont_query'].'
 						<td><a href="process_delete.php?cat='.$row['cont_fnm'].'"><img src = "delete.png"></a>
 						</tr>

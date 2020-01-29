@@ -25,7 +25,15 @@
 			            
 				<li><a href="Contact.php">Contact</a></li>
 
-				
+		<?php
+				if(isset($_SESSION['employee']))
+				{
+					echo '<li><a href="employeeprofileupdate.php">Update Profile</a></li>';
+					echo '<li><a href="application.php">Job Application</a></li>';
+				}
+
+	
+		?>		
 		<?php
 				if(isset($_SESSION['employer']))
 				{

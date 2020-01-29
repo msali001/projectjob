@@ -4,7 +4,7 @@
 	include("includes/config.php");
 
 	        	
-	$q = "select * from jobs where j_id =".$_GET['id'];
+	$q = "SELECT `j_id`, `j_category`, `j_owner_name`, `j_title`, `j_hours`, `j_salary`, `j_experience`, `j_discription`, `j_city`,`employers`.`er_company_profile` FROM `jobs` INNER JOIN employers ON `jobs`.`j_owner_name` = `employers`.`er_fnm` WHERE `jobs`.`j_id` =".$_GET['id'];
 	
 	$res = mysqli_query($link,$q) or die("Wrong Query");
 	
@@ -99,6 +99,7 @@ include("includes/head.inc.php");
 								<tr><td><b>Experience:</b></td><td>'.$row['j_experience'].'</td></tr>
 								<tr><td><b>City:</b></td><td>'.$row['j_city'].'</td></tr>
 								<tr><td><b>Description:</b></td><td>'.$row['j_discription'].'</tr>
+								<tr><td><b>Company Profile:</b></td><td>'.$row['er_company_profile'].'</tr>
 								';
 						
 						?>
@@ -115,12 +116,35 @@ include("includes/head.inc.php");
 	
 				if(isset($_SESSION['status']) && $_SESSION['cat']=="employee")
 				{
-					echo '<div class="button_cont" align="center"><a class="example_e" href="process_apply.php?jid='.$row['j_id'].'" target="_blank" rel="nofollow noopener">Apply Now</a></div>';
+					//mysqli_close($link);
+					$q = "SELECT * FROM `applicants` WHERE `a_uid` = ".$_SESSION['eeid']." AND `a_jid` =".$_GET['id'];
+					//echo $q;
+					$jval = $row['j_id'];
+					$res = mysqli_query($link,$q) or die("Wrong Query");
+	
+					$row = mysqli_fetch_assoc($res);
+					if(empty($row))
+						echo '<div class="button_cont" align="center"><a class="example_e" href="process_apply.php?jid='.$jval.'" rel="nofollow noopener">Apply Now</a></div>';
+					else {
+						echo '<div class="button_cont" align="center"><button disabled class ="example_e">Already Applied</button></div>';
+						$status = $row['status'];
+					}
+					
 					//echo'<tr><td colspan="2"><center><a href="process_apply.php?jid='.$row['j_id'].'"> Apply </center></td></tr></a>';
-				}
+				} 
 	
 		?>
 				</div>
+				<?php
+				if(isset($status)) {
+					if($status === 'PROCESSING')
+						echo "<h3>Your Application is still being Processed.</h3>";
+					if($status === 'ACCEPTED')
+						echo "<h3>Your Application for the  job have been accepted by the Employer. The employer will contact you through your email. Do Frequently check your mail.</h3>";
+					if($status === 'REJECTED')
+						echo "<h3>Your Application is rejected by the employer.</h3>";
+				}
+				?>
 				
 			</div>
 			<!-- end #content -->
